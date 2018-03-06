@@ -1,0 +1,13 @@
+:root {
+  --loader-status: none;
+}
+
+body {
+  background-color: #1A2A40;
+  display: flex;
+  flex-direction: column;
+  height: 99vh;
+  align-items: center;
+  color: #EBF4F7;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
