@@ -1,3 +1,5 @@
+import data from "./data.js";
+
 // Request and handle api calls
 const api = {
   apiBasisUrl: "https://api.data.adamlink.nl/datasets/AdamNet/all/services/endpoint/sparql?default-graph-uri=&query=",
@@ -28,9 +30,12 @@ const api = {
     fetch(url)
   	.then(function (resp) {
       return resp.json();
-    }).then(function(data) {
-      localStorage.setItem(`allData`, JSON.stringify(data));
-  		 console.log(data);
+    }).then(function(content) {
+      document.body.style.setProperty('--loader-status', 'none');
+      localStorage.setItem(`allData`, JSON.stringify(content));
+  		 console.log(content);
+       data.data = content;
+       console.log(data.data);
 
   	}) .catch(function(error) {
   		// if there is any error you will catch them here
