@@ -11,14 +11,16 @@ import map from "./modules/map.js";
     dataFiltert: null,
     init() {
       this.slider()
+
       if(localStorage.getItem("allData")){
         data.data = JSON.parse(localStorage.getItem("allData"));
-        console.log(data.data);
+        map.init();
       } else {
         document.body.style.setProperty('--loader-status', 'block');
-        api.request();
+        api.request().then(function () {
+          map.init();
+        });
       }
-      map.init();
     },
     slider() {
       var slider = document.getElementById("myRange");
@@ -28,6 +30,7 @@ import map from "./modules/map.js";
       slider.oninput = function() {
         output.innerHTML = this.value;
         data.filter(this.value)
+        map.render();
       }
     }
   };

@@ -2,21 +2,21 @@ import data from "./data.js";
 
 const map = {
   mymap: L.map('map').setView([52.37, 4.89], 13),
-  newLayer: null,
-  oldLayer: null,
+  layers: {},
   init() {
-    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+    L.tileLayer(`https://api.mapbox.com/styles/v1/hamkaastosti/cjeigw5bw7lz02rp1bjtz0w1z/tiles/256/{z}/{x}/{y}?access_token=`, {
       attribution: '<a href="https://casburggraaf.com/">Cas Burggraaf&copy</a>',
       maxZoom: 18,
       id: 'mapbox.streets',
       accessToken: 'pk.eyJ1IjoiaGFta2Fhc3Rvc3RpIiwiYSI6ImNqZWgyYTl3dTJsdnIzM2xpN2l0MXBsNGYifQ.C2VXaN0XiPlMwmCS1wCsVg'
     }).addTo(this.mymap);
+    this.mapWorker();
   },
-  renderStreats() {
-    let newLines = [];
-    let oldLines = [];
+  mapWorker() {
+    let _this = this;
 
-    data.dataFiltert.forEach(function (el) {
+    console.log(data.data);
+    data.data.results.bindings.forEach(function (el) {
       let tempCordi = el.wkt.value;
       tempCordi = tempCordi.replace("MULTILINESTRING((", "");
       tempCordi = tempCordi.replace("LINESTRING(", "");
@@ -28,34 +28,42 @@ const map = {
         obj = obj.split(" ");
         return obj;
       })
-
-      let tempObject = {
-        "type": "LineString",
-        "coordinates": tempCordi
-      };
-      newLines.push(tempObject)
+      el.wkt.value = tempCordi;
+      //console.log(el);
+      if (!data.dataParsed[el.start.value]) {
+        data.dataParsed[el.start.value] = [];
+      }
+      data.dataParsed[el.start.value].push(el);
     });
 
-    data.dataPrevious.forEach(function (el) {
-      let tempCordi = el.wkt.value;
-      tempCordi = tempCordi.replace("MULTILINESTRING((", "");
-      tempCordi = tempCordi.replace("LINESTRING(", "");
-      tempCordi = tempCordi.replace(/\(/g, "");
-      tempCordi = tempCordi.replace(/\)/g, "");
-      tempCordi = tempCordi.replace(/POINT/g, "");
-      tempCordi = tempCordi.split(",");
-      tempCordi = tempCordi.map(function (obj) {
-        obj = obj.split(" ");
-        return obj;
-      })
+    Object.keys(data.dataParsed).forEach(function(key) {
+      var value = data.dataParsed[key];
+      if (!_this.layers[key]) {
+        _this.layers[key] = [];
+      }
 
-      let tempObject = {
-        "type": "LineString",
-        "coordinates": tempCordi
-      };
-      oldLines.push(tempObject)
+      Object.keys(value).forEach(function(index) {
+        let cordi = value[index].wkt.value
+        let tempObject = {
+          "type": "LineString",
+          "coordinates": cordi
+        };
+        _this.layers[key].push(tempObject)
+      });
+
     });
+    console.log(_this.layers);
+    
+    this.render();
+    // if (this.mymap.hasLayer(this.newLayer)){
+    //   this.mymap.removeLayer(this.newLayer)
+    // }
 
+
+  },
+  render() {
+    const date = document.querySelector("#myRange").value;
+    console.log(date);
     var myNewStyle = {
       "color": "#ff7800",
       "weight": 5,
@@ -68,15 +76,7 @@ const map = {
       "opacity": 0.35
     };
 
-    if (this.mymap.hasLayer(this.newLayer)){
-      this.mymap.removeLayer(this.newLayer)
-    }
-
-    this.oldLayer = L.geoJSON(oldLines, {
-      style: myOldStyle
-    }).addTo(this.mymap);
-
-    this.newLayer = L.geoJSON(newLines, {
+    this.newLayer = L.geoJSON(this.layers[date] , {
       style: myNewStyle
     }).addTo(this.mymap);
   }

@@ -34,6 +34,7 @@ const api = {
       document.body.style.setProperty('--loader-status', 'none');
       localStorage.setItem(`allData`, JSON.stringify(content));
        data.data = content;
+       resolve();
   	}) .catch(function(error) {
   		// if there is any error you will catch them here
   		console.log(error);
