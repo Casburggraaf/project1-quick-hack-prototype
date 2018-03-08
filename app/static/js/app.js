@@ -1,5 +1,6 @@
 import api from "./modules/api.js";
 import data from "./modules/data.js";
+import map from "./modules/map.js";
 
 (function () {
   "use strict";
@@ -17,6 +18,7 @@ import data from "./modules/data.js";
         document.body.style.setProperty('--loader-status', 'block');
         api.request();
       }
+      map.init();
     },
     slider() {
       var slider = document.getElementById("myRange");

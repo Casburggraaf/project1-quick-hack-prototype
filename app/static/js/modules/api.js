@@ -33,10 +33,7 @@ const api = {
     }).then(function(content) {
       document.body.style.setProperty('--loader-status', 'none');
       localStorage.setItem(`allData`, JSON.stringify(content));
-  		 console.log(content);
        data.data = content;
-       console.log(data.data);
-
   	}) .catch(function(error) {
   		// if there is any error you will catch them here
   		console.log(error);

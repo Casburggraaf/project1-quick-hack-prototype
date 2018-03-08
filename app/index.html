@@ -7,21 +7,29 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>OBA</title>
   <link rel="stylesheet" href="static/style/style.css">
+  <link rel="stylesheet" href="static/style/extern/leaflet.css">
 </head>
 
 <body>
   <img src="static/style/loader.svg" alt="loaderGif">
   <div class="slidecontainer">
-    <input type="range" min="1900" max="2018" value="1900" class="slider" id="myRange">
+    <input type="range" min="1700" max="2018" value="1800" class="slider" id="myRange">
     <p>Value: <span id="demo"></span></p>
   </div>
+  <div id="map"></div>
+  <div class="overZicht">
+    <!-- <h2>Oude straten</h2>
+    <ul id="oldStraten">
 
-  <ul id="straten">
+    </ul> -->
 
-  </ul>
+    <h2>Niewe straten</h2>
+    <ul id="straten">
 
+    </ul>
+  </div>
 
-
+  <script type="text/javascript" src="static/js/extern/leaflet.js"></script>
   <script type="module" src="static/js/app.js"></script>
 </body>
 
