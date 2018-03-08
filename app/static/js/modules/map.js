@@ -14,7 +14,7 @@ const map = {
   },
   renderStreats() {
     let newLines = [];
-    let myOldLines = [];
+    let oldLines = [];
 
     data.dataFiltert.forEach(function (el) {
       let tempCordi = el.wkt.value;
@@ -36,6 +36,26 @@ const map = {
       newLines.push(tempObject)
     });
 
+    data.dataPrevious.forEach(function (el) {
+      let tempCordi = el.wkt.value;
+      tempCordi = tempCordi.replace("MULTILINESTRING((", "");
+      tempCordi = tempCordi.replace("LINESTRING(", "");
+      tempCordi = tempCordi.replace(/\(/g, "");
+      tempCordi = tempCordi.replace(/\)/g, "");
+      tempCordi = tempCordi.replace(/POINT/g, "");
+      tempCordi = tempCordi.split(",");
+      tempCordi = tempCordi.map(function (obj) {
+        obj = obj.split(" ");
+        return obj;
+      })
+
+      let tempObject = {
+        "type": "LineString",
+        "coordinates": tempCordi
+      };
+      oldLines.push(tempObject)
+    });
+
     var myNewStyle = {
       "color": "#ff7800",
       "weight": 5,
@@ -52,8 +72,8 @@ const map = {
       this.mymap.removeLayer(this.newLayer)
     }
 
-    this.oldLayer = L.geoJSON(myOldLines, {
-      style: myNewStyle
+    this.oldLayer = L.geoJSON(oldLines, {
+      style: myOldStyle
     }).addTo(this.mymap);
 
     this.newLayer = L.geoJSON(newLines, {

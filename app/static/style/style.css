@@ -3,12 +3,15 @@
 }
 
 body {
+  margin: 0;
   background-color: #1A2A40;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   color: #EBF4F7;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  width: 100vw;
+  height: 100vh;
 }
 
 img[alt="loaderGif"] {
@@ -28,13 +31,14 @@ img[alt="loaderGif"] {
 }
 
 .slidecontainer {
+    height: 5vh;
     width: 100%;
 }
 
 .slider {
     -webkit-appearance: none;
     width: 100%;
-    height: 25px;
+    height: 2vh;
     background: #d3d3d3;
     outline: none;
     opacity: 0.7;
@@ -50,13 +54,18 @@ img[alt="loaderGif"] {
     -webkit-appearance: none;
     appearance: none;
     width: 25px;
-    height: 25px;
+    height: 2vh;
     background: #4CAF50;
     cursor: pointer;
 }
 
+.slidecontainer p {
+  font-size: 1em;
+  margin: 0;
+}
+
 
 #map {
-  height: 80vh;
+  height: 95vh;
   width: 80vw;
 }

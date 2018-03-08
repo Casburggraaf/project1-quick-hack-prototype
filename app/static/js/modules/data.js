@@ -18,18 +18,6 @@ const data = {
     });
     this.dataPrevious = oldStreats;
 
-    // const oldList = document.querySelector("#oldStraten");
-    //
-    // while (oldList.firstChild) {
-    //   oldList.removeChild(oldList.firstChild);
-    // }
-    //
-    // oldStreats.forEach(function (el) {
-    //   let entry = document.createElement('li');
-    //   entry.appendChild(document.createTextNode(el.naam.value));
-    //   oldList.appendChild(entry);
-    // });
-
     const list = document.querySelector("#straten");
 
     while (list.firstChild) {
