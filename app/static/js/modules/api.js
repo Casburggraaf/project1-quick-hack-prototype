@@ -32,7 +32,7 @@ const api = {
       return resp.json();
     }).then(function(content) {
       document.body.style.setProperty('--loader-status', 'none');
-      localStorage.setItem(`allData`, JSON.stringify(content));
+      try {localStorage.setItem(`allData`, JSON.stringify(content));} catch (e) {console.log("Locall Storage error");}
        data.data = content;
        resolve();
   	}) .catch(function(error) {
