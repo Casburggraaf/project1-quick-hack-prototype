@@ -11,6 +11,7 @@ import map from "./modules/map.js";
     dataFiltert: null,
     init() {
       this.slider()
+      this.sliderPLayer();
 
       if(localStorage.getItem("allData")){
         data.data = JSON.parse(localStorage.getItem("allData"));
@@ -32,6 +33,24 @@ import map from "./modules/map.js";
         data.filter(this.value)
         map.render();
       }
+    },
+    sliderPLayer() {
+      let player = false;
+      let interval = setInterval(function () {
+        if (player === true) {
+          if (document.querySelector("#myRange").value !== document.querySelector("#myRange").max) {
+            document.querySelector("#myRange").value = parseInt(document.querySelector("#myRange").value)  + 1;
+            data.filter(document.querySelector("#myRange").value)
+            document.getElementById("demo").innerHTML = document.querySelector("#myRange").value;
+            map.render();
+          } else if (document.querySelector("#myRange").value === document.querySelector("#myRange").max) {
+            document.querySelector("#myRange").value = document.querySelector("#myRange").min
+          }
+        }
+      }, 50)
+      document.querySelector("#play").addEventListener("click", function () {
+        player = !player;
+      });
     }
   };
   // Start the Aplication

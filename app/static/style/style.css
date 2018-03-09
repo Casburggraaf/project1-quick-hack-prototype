@@ -37,7 +37,7 @@ img[alt="loaderGif"] {
 
 .slider {
     -webkit-appearance: none;
-    width: 100%;
+    width: 95%;
     height: 2vh;
     background: #d3d3d3;
     outline: none;

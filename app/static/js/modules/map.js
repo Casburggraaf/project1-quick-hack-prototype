@@ -62,8 +62,8 @@ const map = {
         _this.geoLayers[key] = L.geoJSON(_this.layers[key] , {
           style: style
         }).addTo(_this.mymap);
-
     });
+    this.render();
   },
   render() {
     const _this = this;
