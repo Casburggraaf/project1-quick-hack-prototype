@@ -12,6 +12,7 @@ body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   width: 100vw;
   height: 100vh;
+  box-sizing: border-box;
 }
 
 img[alt="loaderGif"] {
@@ -24,15 +25,31 @@ img[alt="loaderGif"] {
 
 
 .overZicht {
+  position: absolute;
+  top: 7vh;
+  background-color: rgba(0, 0, 0, 0.28);
+  border-radius: 5px;
+  padding: 0.5em;
   margin-left: 2vw;
   width: 16vw;
   display: flex;
   flex-direction: column;
 }
 
+.overZicht h2 {
+  text-align: center;
+  font-size: 2em;
+  margin-bottom: 0;
+}
+
 .slidecontainer {
+  z-index: 1;
+    position: fixed;
     height: 5vh;
     width: 100%;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
 .slider {
@@ -46,6 +63,20 @@ img[alt="loaderGif"] {
     transition: opacity .2s;
 }
 
+.buttons {
+  cursor: pointer;
+  margin: 0 0.3%;
+  height: 3vh;
+  width: 1.5%;
+  color: #d3d3d3;
+  opacity: 0.7;
+  z-index: 30;
+}
+
+.buttons:hover {
+  opacity: 1;
+}
+
 .slider:hover {
     opacity: 1;
 }
@@ -55,17 +86,21 @@ img[alt="loaderGif"] {
     appearance: none;
     width: 25px;
     height: 2vh;
-    background: #4CAF50;
+    background: #E00B27;
     cursor: pointer;
 }
 
 .slidecontainer p {
   font-size: 1em;
-  margin: 0;
+  margin: 0 1vw 0 auto;
+  font-size: 5em;
+  user-select: none;
 }
 
 
 #map {
-  height: 95vh;
-  width: 80vw;
+  /* z-index: -1; */
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
 }

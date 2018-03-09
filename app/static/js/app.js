@@ -11,7 +11,6 @@ import map from "./modules/map.js";
     dataFiltert: null,
     init() {
       this.slider()
-      this.sliderPLayer();
 
       if(localStorage.getItem("allData")){
         data.data = JSON.parse(localStorage.getItem("allData"));
@@ -22,6 +21,7 @@ import map from "./modules/map.js";
           map.init();
         });
       }
+      this.sliderPLayer();
     },
     slider() {
       var slider = document.getElementById("myRange");
@@ -36,6 +36,7 @@ import map from "./modules/map.js";
     },
     sliderPLayer() {
       let player = false;
+      let playerSpeed = 1000;
       let interval = setInterval(function () {
         if (player === true) {
           if (document.querySelector("#myRange").value !== document.querySelector("#myRange").max) {
@@ -47,10 +48,38 @@ import map from "./modules/map.js";
             document.querySelector("#myRange").value = document.querySelector("#myRange").min
           }
         }
-      }, 50)
+      }, playerSpeed);
       document.querySelector("#play").addEventListener("click", function () {
+        console.log("sadfjlhisk");
         player = !player;
+        //this.classList.toggle("fa-play");
+        //this.classList.toggle("fa-pause");
       });
+
+      document.querySelector("#forward").addEventListener("click", function () {
+        console.log("jhklasahsdfkl");
+        playerSpeed = playerSpeed * 20;
+      });
+
+      document.body.onkeyup = function(e){
+        if(e.keyCode == 32){
+          player = !player;
+        } else if(e.keyCode == 37){
+          if (player === false) {
+            document.querySelector("#myRange").value = parseInt(document.querySelector("#myRange").value)  - 1;
+            data.filter(document.querySelector("#myRange").value)
+            document.getElementById("demo").innerHTML = document.querySelector("#myRange").value;
+            map.render();
+          }
+        } else if(e.keyCode == 39){
+          if (player === false) {
+            document.querySelector("#myRange").value = parseInt(document.querySelector("#myRange").value)  + 1;
+            data.filter(document.querySelector("#myRange").value)
+            document.getElementById("demo").innerHTML = document.querySelector("#myRange").value;
+            map.render();
+          }
+        }
+      };
     }
   };
   // Start the Aplication

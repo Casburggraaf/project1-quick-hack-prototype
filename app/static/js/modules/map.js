@@ -1,7 +1,7 @@
 import data from "./data.js";
 
 const map = {
-  mymap: L.map('map').setView([52.37, 4.89], 13),
+  mymap: L.map('map', { zoomControl:false }).setView([52.37, 4.86], 13),
   layers: {},
   geoLayers: {},
   init() {
@@ -12,9 +12,12 @@ const map = {
       accessToken: 'pk.eyJ1IjoiaGFta2Fhc3Rvc3RpIiwiYSI6ImNqZWgyYTl3dTJsdnIzM2xpN2l0MXBsNGYifQ.C2VXaN0XiPlMwmCS1wCsVg'
     }).addTo(this.mymap);
     this.mapWorker();
+    data.filter(document.querySelector("#myRange").value)
   },
   mapWorker() {
     let _this = this;
+
+    this.mymap.keyboard.disable();
 
     data.data.results.bindings.forEach(function (el) {
       let tempCordi = el.wkt.value;
@@ -74,7 +77,7 @@ const map = {
         if (key < date) {
           _this.geoLayers[key].setStyle({
             "opacity": 0.3,
-            "color": "#A8A8A8",
+            "color": "#2474A6",
           });
         } else if (key > date) {
           _this.geoLayers[key].setStyle({
@@ -87,7 +90,7 @@ const map = {
     if (this.geoLayers[date]) {
       this.geoLayers[date].setStyle({
         "opacity": 0.65,
-        "color": "#ff7800"
+        "color": "#E00B27"
       });
     }
   }

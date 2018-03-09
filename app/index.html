@@ -13,19 +13,18 @@
 <body>
   <img src="static/style/loader.svg" alt="loaderGif">
   <div class="slidecontainer">
-    <input type="range" min="1800" max="2018" value="1850" class="slider" id="myRange">
-    <span id="play">Play</span>
-    <p>Jaar: <span id="demo"></span></p>
+    <input type="range" min="1850" max="2018" value="1900" class="slider" id="myRange">
+    <span id="play" class="buttons"><i class="fas fa-play buttons"></i></span>
+    <span id="forward" class="buttons"><i class="fas fa-angle-double-right buttons"></i></span>
+    <p><span id="demo"></span></p>
   </div>
   <div id="map"></div>
   <div class="overZicht">
-
-    <h2>Niewe straten</h2>
+    <h2>Nieuwe straten</h2>
     <ul id="straten">
-
     </ul>
   </div>
-
+  <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
   <script type="text/javascript" src="static/js/extern/leaflet.js"></script>
   <script type="module" src="static/js/app.js"></script>
 </body>
