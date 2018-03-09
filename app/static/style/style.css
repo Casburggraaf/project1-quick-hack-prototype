@@ -27,7 +27,7 @@ img[alt="loaderGif"] {
 .overZicht {
   position: absolute;
   top: 7vh;
-  background-color: rgba(0, 0, 0, 0.28);
+  background-color: rgba(0, 0, 0, 0.4);
   border-radius: 5px;
   padding: 0.5em;
   margin-left: 2vw;
@@ -42,10 +42,20 @@ img[alt="loaderGif"] {
   margin-bottom: 0;
 }
 
+.overZicht a {
+  text-decoration: none;
+  color: white;
+}
+
+.overZicht a:hover {
+  text-decoration: underline;
+  color: white;
+}
+
 .slidecontainer {
   z-index: 1;
     position: fixed;
-    height: 5vh;
+    height: 4vh;
     width: 100%;
     display: flex;
     align-items: center;
@@ -53,9 +63,11 @@ img[alt="loaderGif"] {
 }
 
 .slider {
+  margin-left: 6px;
+  margin-right: 6px;
     -webkit-appearance: none;
     width: 95%;
-    height: 2vh;
+    height: 4vh;
     background: #d3d3d3;
     outline: none;
     opacity: 0.7;
@@ -66,7 +78,7 @@ img[alt="loaderGif"] {
 .buttons {
   cursor: pointer;
   margin: 0 0.3%;
-  height: 3vh;
+  height: 4vh;
   width: 1.5%;
   color: #d3d3d3;
   opacity: 0.7;
@@ -88,16 +100,15 @@ img[alt="loaderGif"] {
 .slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 25px;
-    height: 2vh;
+    width: 35px;
+    height: 4vh;
     background: #E00B27;
     cursor: pointer;
 }
 
 .slidecontainer p {
-  font-size: 1em;
   margin: 0 1vw 0 auto;
-  font-size: 5em;
+  font-size: 6em;
   user-select: none;
 }
 

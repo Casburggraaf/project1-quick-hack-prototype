@@ -18,9 +18,11 @@ const data = {
 
     newStreats.forEach(function (el) {
       let entry = document.createElement('li');
-      let link = document.createElement('li');
-      console.log(el);
-      entry.appendChild(document.createTextNode(el.naam.value));
+      let link = document.createElement('a');
+      link.href = el.street.value;
+      link.target = "_blank";
+      link.appendChild(document.createTextNode(el.naam.value));
+      entry.appendChild(link)
       list.appendChild(entry);
     });
   }
