@@ -18,6 +18,8 @@ const data = {
 
     newStreats.forEach(function (el) {
       let entry = document.createElement('li');
+      let link = document.createElement('li');
+      console.log(el);
       entry.appendChild(document.createTextNode(el.naam.value));
       list.appendChild(entry);
     });

@@ -35,35 +35,50 @@ import map from "./modules/map.js";
       }
     },
     sliderPLayer() {
+      let _this = this;
       let player = false;
-      let playerSpeed = 1000;
-      let interval = setInterval(function () {
-        if (player === true) {
-          if (document.querySelector("#myRange").value !== document.querySelector("#myRange").max) {
-            document.querySelector("#myRange").value = parseInt(document.querySelector("#myRange").value)  + 1;
-            data.filter(document.querySelector("#myRange").value)
-            document.getElementById("demo").innerHTML = document.querySelector("#myRange").value;
-            map.render();
-          } else if (document.querySelector("#myRange").value === document.querySelector("#myRange").max) {
-            document.querySelector("#myRange").value = document.querySelector("#myRange").min
-          }
-        }
-      }, playerSpeed);
+      // let playerSpeed = 1000;
+      // let interval = setInterval(function () {
+      //   if (player === true) {
+      //     if (document.querySelector("#myRange").value !== document.querySelector("#myRange").max) {
+      //       document.querySelector("#myRange").value = parseInt(document.querySelector("#myRange").value)  + 1;
+      //       data.filter(document.querySelector("#myRange").value)
+      //       document.getElementById("demo").innerHTML = document.querySelector("#myRange").value;
+      //       map.render();
+      //     } else if (document.querySelector("#myRange").value === document.querySelector("#myRange").max) {
+      //       document.querySelector("#myRange").value = document.querySelector("#myRange").min
+      //     }
+      //   }
+      // }, playerSpeed);
+
       document.querySelector("#play").addEventListener("click", function () {
-        console.log("sadfjlhisk");
         player = !player;
-        //this.classList.toggle("fa-play");
-        //this.classList.toggle("fa-pause");
+        if (player) {
+          _this.autoPlay.start();
+        } else {
+          _this.autoPlay.stop();
+        }
+        //console.log(this);
+        this.querySelector(".fa-play").classList.toggle("hid");
+        this.querySelector(".fa-pause").classList.toggle("hid");
       });
 
       document.querySelector("#forward").addEventListener("click", function () {
-        console.log("jhklasahsdfkl");
-        playerSpeed = playerSpeed * 20;
+        _this.autoPlay.set_interval(_this.autoPlay.iv / 1.5);
       });
-
+      //this.autoPlay.start();
       document.body.onkeyup = function(e){
         if(e.keyCode == 32){
           player = !player;
+          if (player) {
+            _this.autoPlay.start();
+            document.querySelector(".fa-play").classList.toggle("hid");
+            document.querySelector(".fa-pause").classList.toggle("hid");
+          } else {
+            _this.autoPlay.stop();
+            document.querySelector(".fa-play").classList.toggle("hid");
+            document.querySelector(".fa-pause").classList.toggle("hid");
+          }
         } else if(e.keyCode == 37){
           if (player === false) {
             document.querySelector("#myRange").value = parseInt(document.querySelector("#myRange").value)  - 1;
@@ -80,6 +95,41 @@ import map from "./modules/map.js";
           }
         }
       };
+    },
+    autoPlay: {
+      running: false,
+      iv: 1000,
+      timeout: false,
+      cb : function(){
+        if (document.querySelector("#myRange").value !== document.querySelector("#myRange").max) {
+          document.querySelector("#myRange").value = parseInt(document.querySelector("#myRange").value)  + 1;
+          data.filter(document.querySelector("#myRange").value)
+          document.getElementById("demo").innerHTML = document.querySelector("#myRange").value;
+          map.render();
+        } else if (document.querySelector("#myRange").value === document.querySelector("#myRange").max) {
+          document.querySelector("#myRange").value = document.querySelector("#myRange").min
+        }
+      },
+      start : function(cb,iv){
+          var elm = this;
+          clearInterval(this.timeout);
+          this.running = true;
+          if(cb) this.cb = cb;
+          if(iv) this.iv = iv;
+          this.timeout = setTimeout(function(){elm.execute(elm)}, this.iv);
+      },
+      execute : function(e){
+          if(!e.running) return false;
+          e.cb();
+          e.start();
+      },
+      stop : function(){
+          this.running = false;
+      },
+      set_interval : function(iv){
+          clearInterval(this.timeout);
+          this.start(false, iv);
+      }
     }
   };
   // Start the Aplication

@@ -73,6 +73,10 @@ img[alt="loaderGif"] {
   z-index: 30;
 }
 
+.buttons .hid {
+  display: none;
+}
+
 .buttons:hover {
   opacity: 1;
 }
