@@ -4,6 +4,7 @@ const map = {
   mymap: L.map('map', { zoomControl:false }).setView([52.37, 4.86], 13),
   layers: {},
   geoLayers: {},
+  prevRender: parseInt(document.querySelector("#myRange").value),
   init() {
     L.tileLayer(`https://api.mapbox.com/styles/v1/hamkaastosti/cjeigw5bw7lz02rp1bjtz0w1z/tiles/256/{z}/{x}/{y}?access_token={accessToken}`, {
       attribution: '<a href="https://casburggraaf.com/">Cas Burggraaf&copy</a>',
@@ -58,7 +59,7 @@ const map = {
     Object.keys(this.layers).forEach(function(key) {
       let style = {
           "color": "#ff7800",
-          "weight": 5,
+          "weight": 3,
           "opacity": 0
         };
 
@@ -70,22 +71,31 @@ const map = {
   },
   render() {
     const _this = this;
+
     const date = document.querySelector("#myRange").value;
 
-    Object.keys(this.geoLayers).forEach(function(key) {
-      if (_this.geoLayers[key]) {
-        if (key < date) {
-          _this.geoLayers[key].setStyle({
-            "opacity": 0.3,
-            "color": "#2474A6",
-          });
-        } else if (key > date) {
-          _this.geoLayers[key].setStyle({
-            "opacity": 0
-          });
+    if ((parseInt(date) - parseInt(this.prevRender)) !== 1){
+      Object.keys(this.geoLayers).forEach(function(key) {
+        if (_this.geoLayers[key]) {
+          if (key < date) {
+            _this.geoLayers[key].setStyle({
+              "opacity": 0.3,
+              "color": "#2474A6",
+            });
+          } else if (key > date) {
+            _this.geoLayers[key].setStyle({
+              "opacity": 0
+            });
+          }
         }
-      }
-    });
+      });
+    } else if(this.geoLayers[this.prevRender]){
+      this.geoLayers[this.prevRender].setStyle({
+        "opacity": 0.3,
+        "color": "#2474A6",
+      });
+    }
+
 
     if (this.geoLayers[date]) {
       this.geoLayers[date].setStyle({
@@ -93,6 +103,7 @@ const map = {
         "color": "#E00B27"
       });
     }
+    this.prevRender = document.querySelector("#myRange").value;
   }
 };
 
