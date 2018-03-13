@@ -64,7 +64,12 @@ const map = {
         };
 
         _this.geoLayers[key] = L.geoJSON(_this.layers[key] , {
-          style: style
+          style: style,
+          onEachFeature: function onEachFeature(feature, layer) {
+            layer.on('click', function (e) {
+              console.log(e);
+            });
+          }
         }).addTo(_this.mymap);
     });
     this.render();
